@@ -71,9 +71,7 @@ def export_mods(py_args):
 
     mods = {"pacmc": {}, "manual": {}, "http_dl": {}}
     files = [
-        f
-        for f in listdir(py_args.archive_path)
-        if isfile(join(py_args.archive_path, f))
+        f for f in listdir(py_args.mods_folder) if isfile(join(py_args.mods_folder, f))
     ]
 
     mods["game_version"] = py_args.game_version
@@ -100,14 +98,14 @@ def export_mods(py_args):
 
         if mod_file == (".mcmods.json"):
             # Manual
-            with open(f"{py_args.archive_path}/{mod_file}", "r") as f:
+            with open(f"{py_args.mods_folder}/{mod_file}", "r") as f:
                 mcmods_mods = json.load(f)
 
             for mod in mcmods_mods["manual"]:
                 mods["manual"][mod] = {"link": mcmods_mods["manual"][mod]["link"]}
 
             # HTTP DL
-            with open(f"{py_args.archive_path}/{mod_file}", "r") as f:
+            with open(f"{py_args.mods_folder}/{mod_file}", "r") as f:
                 mcmods_mods = json.load(f)
 
             for mod in mcmods_mods["http_dl"]:

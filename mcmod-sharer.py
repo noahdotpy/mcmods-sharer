@@ -46,7 +46,7 @@ def main():
     )
 
     export_parser.add_argument(
-        "archive_path", help="Path to the archive you are pulling mods list from."
+        "mods_folder", help="Path to the archive you are pulling mods from."
     )
 
     export_parser.add_argument(
