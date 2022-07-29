@@ -64,10 +64,10 @@ def export_mods(py_args):
     try:
         if py_args.mod_loader[0] not in ["fabric", "quilt", "forge"]:
             raise ModLoaderUnsupportedError
-        else:
-            return True
     except ModLoaderUnsupportedError:
         log.exception("Unsupported mod loader specified.")
+    else:
+        log.info("Mod loader supported.")
 
     mods = {"pacmc": {}, "manual": {}, "http_dl": {}}
     files = [
