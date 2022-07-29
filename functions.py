@@ -138,7 +138,7 @@ def import_mods(py_args):
         mods = json.load(f)
 
     log.info(
-        f"This modlist is meant to be used with {mods['mod_loader']} for {mods['game_version']}"
+        f"This modlist is meant to be used with {mods['mod_loader'][0]} for {mods['game_version'][0]}"
     )
 
     # PACMC
