@@ -25,8 +25,6 @@ FORMATS = {
 
 GITHUB_REPO = "https://github.com/noahdotpy/mcmods-sharer/"
 
-SUPPORTED_MOD_LOADERS = ["fabric", "quilt", "forge"]
-
 
 class CustomFormatter(logging.Formatter):
     def format(self, record):
@@ -40,6 +38,10 @@ handler.setFormatter(CustomFormatter())
 logging.basicConfig(level=logging.DEBUG, handlers=[handler])
 
 log = logging.getLogger()
+
+
+class ModLoaderUnsupportedError(ValueError):
+    pass
 
 
 def open_browser(link, unsupported_then_show_link=False):
@@ -59,10 +61,13 @@ def open_browser(link, unsupported_then_show_link=False):
 
 def export_mods(py_args):
 
-    if py_args.mod_loader.lower() not in SUPPORTED_MOD_LOADERS:
-        log.error(
-            f"{py_args.mod_loader.title()} is not supported, if you think this is absolutely ridiculous, please, open a new issue: {GITHUB_REPO}"
-        )
+    try:
+        if py_args.mod_loader[0] not in ["fabric", "quilt", "forge"]:
+            raise ModLoaderUnsupportedError
+        else:
+            return True
+    except ModLoaderUnsupportedError:
+        log.exception("Unsupported mod loader specified.")
 
     mods = {"pacmc": {}, "manual": {}, "http_dl": {}}
     files = [

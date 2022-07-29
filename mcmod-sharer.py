@@ -39,7 +39,7 @@ def main():
         "-ml",
         action="store",
         default=[""],
-        nargs="*",
+        nargs=1,
         metavar=("<mod_loader>",),
         help="Minecraft mod loader.",
         required=True,
