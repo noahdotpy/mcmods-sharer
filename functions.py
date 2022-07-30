@@ -125,15 +125,6 @@ def export_mods(py_args):
 
 
 def import_mods(py_args):
-    """
-    Implement auto PacMC downloading (pacmc install sodium) with user choosing archive to download to
-    Implement auto opening manual and HTTP_DL in browser
-    cmd_syntax = {
-        "linux": "xdg-open https://google.com",
-        "windows": "start https://google.com",
-        "macos": "open https://google.com"
-    }
-    """
     with open(py_args.file_path, "r") as f:
         mods = json.load(f)
 
@@ -164,7 +155,7 @@ def import_mods(py_args):
         log.info("\nNo PacMC mods, skipping...")
 
     # MANUAL
-    if len(mods["manual"]) > 0:
+    if mods["manual"] and len(mods["manual"]) > 0:
         print()
         log.info(
             f"You are about to open {len(mods['manual'])} mod links in the default browser (manually download)..."
@@ -184,7 +175,7 @@ def import_mods(py_args):
         log.info("\nNo manual install mods, skipping...")
 
     # HTTP_DL
-    if len(mods["manual"]) > 0:
+    if mods["http_dl"] and len(mods["http_dl"]) > 0:
         print()
         log.info(
             f"You are about to download {len(mods['manual'])} mods from an untrusted source..."
